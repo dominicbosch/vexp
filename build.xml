@@ -1,0 +1,174 @@
+<project name="vexp3  sourcforge" default="dist" basedir="." >
+
+	<property environment="env" />
+	<property name="app.name" value="vexp3" />
+	<property name="build.dir" value="bin" />
+	<property name="jardist.dir" value="jardist"/>
+	<property name="doc.dir" value="doc"/>
+	<property name="media.dir" value="${build.dir}/media"/>
+
+	<target name="prepare">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${media.dir}"/>
+		<mkdir dir="${jardist.dir}"/>
+		<copy todir="${media.dir}">
+			<fileset dir="media" />
+		</copy>
+	</target>
+
+	<target name="compile" depends="prepare">
+		<mkdir dir="${build.dir}"/>
+		<javac srcdir="src" destdir="${build.dir}" deprecation="on" >
+			<classpath>
+				<pathelement path="${build.dir}" />
+				<fileset dir="lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="distserver" depends="compile">
+		<jar jarfile="${jardist.dir}/${app.name}_server.jar" basedir="${build.dir}"/>
+	</target>
+
+	<target name="distclient" depends="compile">
+		<jar jarfile="${jardist.dir}/${app.name}_client.jar" 
+         basedir="${build.dir}"
+         includes="nano/net/**,nano/client/**,nano/awt/**,media/**,nano/compute/**"
+         excludes="**/CVS/**,nano/server/**,nano/db/**,nano/compute/simulation/**" 
+         />
+	</target>
+
+	<target name="deployclient" depends="distclient">
+		<scp file="${jardist.dir}/${app.name}_client.jar" todir="${username.nano-world2}:${password.nano-world2}@MYSERVER.COM:/PATH"/>
+	</target>
+
+	<target name="dist" depends="distclient">
+		<jar jarfile="${jardist.dir}/nano.jar" basedir="${build.dir}"/>
+	</target>
+
+
+	<target name="copy_measurements" >
+		<mkdir dir="${build.dir}/nano/compute/simulation/images"/>
+		<copy todir="${build.dir}/nano/compute/simulation/images">
+			<fileset dir="measurements" />
+		</copy>
+		<mkdir dir="${build.dir}/nano/compute/simulation/conf"/>
+				<copy todir="${build.dir}/nano/compute/simulation/conf">
+					<fileset dir="conf" />
+		</copy>
+	</target>
+
+	<target name="copy_external_classes" >
+		<copy todir="${build.dir}">
+			<fileset dir="lib/core" />
+		</copy>
+	</target>
+
+	<target name="dist_standalone" depends="distclient,copy_measurements,copy_external_classes">
+		<mkdir dir="${jardist.dir}/standalone"/>
+		<jar jarfile="${jardist.dir}/standalone/nano.jar" basedir="${build.dir}"/>
+		<copy todir="${jardist.dir}/standalone">
+			<fileset dir="html" />
+		</copy>
+	</target>
+	
+	<target name="dist_applet" depends="dist">
+		<copy file="${jardist.dir}/nano.jar" tofile="${jardist.dir}/nanoApplet.jar" />
+		<signjar jar="${jardist.dir}/nanoApplet.jar"
+			keystore="lib/nanoKeystore" storepass="lilaRAFM"
+			alias="rafmkey" keypass="v3xpRAFM" />
+	</target>
+
+	<target name="sourcejar" depends="compile">
+		<!-- Put everything in ${src} into the clientsrc.jar file -->
+		<jar jarfile="${jardist.dir}/nanosrc.jar" basedir="src"/>
+	</target>
+
+	<target name="packLLOs" depends="dist">
+	   <ant dir="llopackager" target="dist"/>
+	</target>
+
+	<target name="doc" depends="compile">
+		<mkdir dir="${doc.dir}"/>
+		<!-- Make JavaDoc of the sourcefiles and put it into doc/ -->
+		<javadoc packagenames="nano.server, nano.client, nano.awt, nano.awt.color, nano.compute, nano.compute.simulation, nano.net, nano.db" sourcepath="src" destdir="doc" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${media.dir}"/>
+		<delete dir="${jardist.dir}"/>
+		<delete dir="${doc.dir}"/>
+		<delete dir="bin"/>
+	</target>
+
+	<!-- Creates the API javadocs. -->
+	<target name="docs" >
+		<mkdir dir="${build.dir}/api"/>
+		<javadoc
+	        sourcefiles=""
+	        packagenames="${packages}"
+	        sourcepath="src"
+	        classpath="${build.dir};lib/Acme.jar;lib/mysqldriver.jar"
+	        destdir="${build.dir}/api"
+	        author="true"
+	        version="true"
+	        use="true"
+	        windowtitle="VEXP">
+				<doctitle>
+					<![CDATA[<h1>VEXP nano-world.org</h1>]]></doctitle>
+			<bottom>
+				<![CDATA[<i>Copyright &#169; 2003 nano-world.org, Inc. All Rights Reserved</i>]]></bottom>
+		</javadoc>
+	</target>
+	
+	<target name="generate_source_version" depends="clean">
+		<mkdir dir="${jardist.dir}/newversion/${app.name}"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/.settings"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/conf"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/conf_server"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/html"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/lib"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/measurements"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/media"/>
+		<mkdir dir="${jardist.dir}/newversion/${app.name}/src"/>
+		
+		<copy todir="${jardist.dir}/newversion/${app.name}/.settings">
+			<fileset dir=".settings" excludes="**/CVS/**,.DS_Store" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}/conf">
+			<fileset dir="conf" excludes="**/CVS/**,.*" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}/conf_server">
+			<fileset dir="conf_server" excludes="**/CVS/**,.*" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}/html">
+			<fileset dir="html" excludes="**/CVS/**,.*" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}/lib">
+			<fileset dir="lib" excludes="**/CVS/**,.*" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}/measurements">
+			<fileset dir="measurements" excludes="**/CVS/**,.*" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}/media" >
+			<fileset dir="media" excludes="**/CVS/**,.*" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}/src">
+			<fileset dir="src" excludes="**/CVS/**,.*" />
+		</copy>
+		<copy todir="${jardist.dir}/newversion/${app.name}">
+			<fileset dir="."  excludes="**/CVS/**,.DS_*,.cvsi*" includes="*.txt,.class*,.proj*,*.sh,*.bat,*.xml" />
+		</copy>
+		
+		<zip destfile="${jardist.dir}/${app.name}.zip" >
+			<fileset dir ="${jardist.dir}/newversion/${app.name}">
+			</fileset>
+		</zip>
+		
+		<delete dir="${jardist.dir}/newversion/${app.name}"/>
+	</target>
+
+</project>

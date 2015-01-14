@@ -1,0 +1,3 @@
+label=a guitype=vollkreis min=0 max=250 Name=a
+label=b guitype=vollkreis min=0 max=1000 Name=b
+label=c guitype=vollkreis min=0 max=10 Name=c

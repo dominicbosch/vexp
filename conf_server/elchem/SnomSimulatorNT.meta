@@ -1,0 +1,5 @@
+label=zoom guitype=vollkreis min=1 max=10 Name=Zoom_Factor
+label=xoffset guitype=vollkreis min=-20 max=20 Name=X_Offset
+label=yoffset guitype=vollkreis min=-20 max=20 Name=Y_Offset
+label=noise guitype=vollkreis min=0 max=100 Name=Noise
+label=frequenz guitype=vollkreis min=1 max=50 Name=Scan_Frequency

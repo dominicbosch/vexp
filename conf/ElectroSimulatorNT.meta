@@ -1,0 +1,2 @@
+label=step_width guitype=vollkreis min=1 max=30 Name=step_width
+label=potential guitype=vollkreis min=-500 max=1300 Name=potential

@@ -1,0 +1,5 @@
+label=zoom guitype=vollkreis min=0.2 max=9 Name=ScanSize
+label=xoffset guitype=vollkreis min=-5 max=5 Name=X_Offset
+label=yoffset guitype=vollkreis min=-5 max=5 Name=Y_Offset
+label=noise guitype=vollkreis min=0.2 max=100 Name=Noise
+label=frequenz guitype=vollkreis min=0.5 max=8 Name=Scan_Frequency

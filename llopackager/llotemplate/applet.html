@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            span.api_ok {
+                color: green;
+                font-style: italic;
+                font-size: small;
+            }
+            span.api_err {
+                color: red;
+            }
+            span.field_name {
+                font-weight: bold;
+            }
+            span.field_value {
+                font-family: monospace;
+                padding-left: 10px;
+            }
+            #scorm_info, applet {
+                border-style: solid;
+                border-width: 1px;
+            }
+        </style>
+
+        <script type="text/javascript" src="Shared Files/scripts/APIWrapper.js"></script>
+        <script type="text/javascript"><!--
+            var API;
+            function doLMSInitialize(){
+                //find and returns the API starting with this window
+                API = getAPI();
+
+                var statusMessage;
+                try {
+                    API.Initialize("");
+                    statusMessage = "<span class=\"api_ok\">SCORM API correctly initialized</span>";
+                } catch (e) {
+                    statusMessage = "<span class=\"api_err\">Error \"" + e.name +
+                        "\" initializing SCORM API: " + e.message + "</span>";
+                }
+                var apiStatusDiv = document.getElementById("api_status");
+                apiStatusDiv.innerHTML = statusMessage;
+            }
+
+            function loadScormInfo() {
+                var scormInfo;
+
+                values = ["cmi._version", "cmi.total_time", "cmi.location",
+                    "cmi.learner_id", "cmi.learner_name",
+                    "cmi.learner_preference.language",
+                    "cmi.interactions.n.timestamp", "cmi.suspend_data",
+                    "lila.scheduling.url"];
+                scormInfo = "";
+                for (var i = 0; i < values.length; i++) {
+                    scormInfo += "<span class=\"field_name\"/>" +
+                        values[i] + ":</span><span class=\"field_value\">";
+                    try {
+                        scormInfo += API.GetValue(values[i]);
+                    } catch (e) {
+                        scormInfo += "CMI or value not found";
+                    }
+                    scormInfo +=  "</span><br/>\n";
+                }
+                var scormInfoDiv = document.getElementById("scorm_info");
+                scormInfoDiv.innerHTML = scormInfo;
+            }
+            function changeparam() {
+            	document.getElementById('nanoApplet').setUserID('prrounz');
+            	//alert(document.getElementById('userid').getAttribute('value'));
+            	//document.getElementById('userid').setAttribute('value', '100');
+            	//alert(document.getElementById('userid').getAttribute('value'));
+            	//document.getElementById('progress').setAttribute('value', '100');
+            	//document.getElementById('user').innerHTML = 'phewww';
+            }
+            //--></script>
+    </head>
+    <body onload="changeparam();doLMSInitialize();changeparam();" onunload="API.Terminate('');">
+        <h1>@title@</h1>
+        <div id="api_status" ></div>
+        <applet id="nanoApplet" code="@classname@"
+                archive="@archive@"
+                alt="@title@"
+                name="applet"
+                width="@width@" height="@height@" >
+            @title@
+            @parameters@
+        </applet>@javascript@
+        <div id="user"></div>
+        <div id="scorm_info" ></div>
+        <progress min="0" max="100" value="20" id="progress"></progress>
+        <div><input type="button" onclick="loadScormInfo();" value="Load SCORM RTE info"/></div>
+        <div><input type="button" onclick="changeparam();" value="change applet param"/></div>
+    </body>
+</html>

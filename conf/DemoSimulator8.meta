@@ -1,0 +1,5 @@
+label=p_regler guitype=vollkreis min=0 max=250 Name=p_regler
+label=i_regelr guitype=vollkreis min=0 max=1000 Name=i_regler
+label=a guitype=vollkreis min=0 max=10 Name=a
+label=b guitype=vollkreis min=0 max=10 Name=b
+label=scansize guitype=vollkreis min=0 max=10 Name=scansize

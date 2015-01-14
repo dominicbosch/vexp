@@ -1,0 +1,4 @@
+command=getgui
+#command=set name=springconstant value=3
+#command=set name=scansize value=4
+#command=approach

@@ -1,0 +1,26 @@
+Regard those instructions if you intend to run the nano applet which allows you to control the RAFM
+
+- be sure to include following in your website (the values can be different):	
+  <applet archive="lib/nano.jar" code="nano.client.applet.ClientApplet.class" width="650" height="650">
+	<param name="url" value="131.152.85.170">
+	<param name="eventport" value="9100">
+	<param name="streamport" value="9102">
+	<param name="id" value="1470">
+  </applet>
+
+- Check your policy settings and your includes (lib/*.jar) if you run it in eclipse or similar.
+
+- Check your PATH to include the jdk*/bin directory in order to be able to sign the applet's jar with JARsigner.
+
+- if you run it from browser you need to ensure that you sign the applet in order for it to work.
+  Running the file testRAFMApplet.html in your browser should show you if the jar file has been signed properly.
+
+- if you build the applet jar file by using the build.xml target dist_applet you must know that the
+  signed jar nanoApplet.jar will only be valid for one hundred years ;)
+  
+- you can use another keystore by using the following command in console:
+    keytool -genkey -keystore nanoKeystore -alias rafmkey -validity 36500
+    (of course you can adjust the parameters nanoKeystore, rafmkey and 36500 to your needs
+     but consider changing them in the build.xml too) 
+
+ 

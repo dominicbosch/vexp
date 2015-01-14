@@ -1,0 +1,6 @@
+#Config file for initialisation of vexp-server.
+#
+command=initports eventport=9000 streamport=9002
+command=initsource name=ElectroSimulatorNT
+#SnomSimulatorNT, FrictionSimulatorNT, ElectroSimulatorNT
+#RemoteSimulator, PushRemoteSimulator, ImagingSimulator

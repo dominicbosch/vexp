@@ -1,0 +1,29 @@
+<HTML>
+
+<HEAD>
+<TITLE>Stand Alone Applets</TITLE>
+<style type="text/css">
+	body { background-color:#bdbabd; margin:0px; }
+	h1,h2,h3,h4 { color:#bdbabd; font-family: verdana, arial; }
+	h1 { font-size: 24px; margin:0px; }
+	p,a { color:#ffffff; font-family:verdana, arial; font-size:14px; font-weight:bold; text-decoration:none; }
+	img { border:0px solid black; }
+	#main { postition:absolute; width:800px; height:600px; margin:5% auto; padding:0px; border:0px solid black; vertical-align:center; background-color:#0066cc; background-position:top right; background-repeat:no-repeat; }
+	#content { position:relative; width:650px; margin:0px auto; padding:20px 0px; border:0px solid black; visibility:block; }
+</style>
+</HEAD>
+
+<BODY>
+<div id="main">
+	
+	<div id="content">
+		<h1>Electro Chemistry</h1>
+		<APPLET code="nano.client.standalone.ElchemStandAloneApplet" width="650" height="500" archive="nano.jar">
+<PARAM name="gui0" value="label=step_width guitype=vollkreis min=1 max=30 Name=step_width">
+<PARAM name="gui1" value="label=potential guitype=vollkreis min=-500 max=1300 Name=potential">
+</APPLET>
+		<p><a href="./index.html">BACK</a></p>
+	</div>
+
+</div>
+</BODY></HTML>

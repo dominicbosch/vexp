@@ -1,0 +1,5 @@
+label=zoom guitype=vollkreis min=1 max=640 Name=Size(nm)
+label=xoffset guitype=vollkreis min=-100 max=100 Name=X(nm)
+label=yoffset guitype=vollkreis min=-100 max=100 Name=Y(nm)
+
+

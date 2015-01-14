@@ -1,0 +1,32 @@
+<HTML>
+
+<HEAD>
+<TITLE>Stand Alone Applets</TITLE>
+<style type="text/css">
+	body { background-color:#bdbabd; margin:0px; }
+	h1,h2,h3,h4 { color:#bdbabd; font-family: verdana, arial; }
+	h1 { font-size: 24px; margin:0px; }
+	p,a { color:#ffffff; font-family:verdana, arial; font-size:14px; font-weight:bold; text-decoration:none; }
+	img { border:0px solid black; }
+	#main { postition:absolute; width:800px; height:600px; margin:5% auto; padding:0px; border:0px solid black; vertical-align:center; background-color:#0066cc; background-position:top right; background-repeat:no-repeat; }
+	#content { position:relative; width:650px; margin:0px auto; padding:20px 0px; border:0px solid black; visibility:block; }
+</style>
+</HEAD>
+
+<BODY>
+<div id="main">
+	
+	<div id="content">
+		<h1>Friction Expert Applet</h1>
+		<APPLET code="nano.client.standalone.FrictionStandAloneApplet" width="650" height="500" archive="nano.jar">
+		<PARAM name="gui0" value="label=scansize guitype=vollkreis min=0.1 max=50 Name=Scan_size">
+		<PARAM name="gui1" value="label=noise guitype=vollkreis min=0.2 max=100 Name=Noise">
+		<PARAM name="gui2" value="label=springconstant guitype=vollkreis min=0.2 max=80 Name=Spring_Constant">
+		<PARAM name="gui3" value="label=offset guitype=vollkreis min=-80 max=80 Name=Offset">
+		<PARAM name="gui4" value="label=scales guitype=vollkreis min=0.5 max=80 Name=Gain">
+		</APPLET>
+		<p><a href="./index.html">BACK</a></p>
+	</div>
+
+</div>
+</BODY></HTML>

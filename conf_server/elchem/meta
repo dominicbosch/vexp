@@ -1,0 +1,6 @@
+label=Current guitype=vollkreis group=course1 min=10 max=100 Name=Tunnel_Current
+label=Current1 guitype=vollkreis min=10 max=100 Name=Electrolyte_Voltage
+label=Current2 guitype=vollkreis min=10 max=100 Name=Gain_Voltage
+label=Current3 guitype=vollkreis min=10 max=100 Name=Sampling_Scale
+label=Current4 guitype=vollkreis min=10 max=100 Name=Noise_Component
+label=Current5 guitype=vollkreis min=10 max=100 Name=Offset

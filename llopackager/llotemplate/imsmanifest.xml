@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="Ex_01_ContentAggregationManifest"
+	version="SCORM2004_3ED" xmlns="http://www.imsglobal.org/xsd/imscp_v1p1"
+	xmlns:lom="http://ltsc.ieee.org/xsd/LOM" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:imsss="http://www.imsglobal.org/xsd/imsss"
+	xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3"
+	xsi:schemaLocation="http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p1.xsd
+      http://ltsc.ieee.org/xsd/LOM lom.xsd
+      http://www.adlnet.org/xsd/adlcp_v1p3 adlcp_v1p3.xsd
+      http://www.imsglobal.org/xsd/imsss imsss_v1p0.xsd
+      http://www.adlnet.org/xsd/adlnav_v1p3 adlnav_v1p3.xsd">
+
+	<metadata>
+		<schema>ADL SCORM</schema>
+		<schemaversion>2004 3rd Edition</schemaversion>
+
+	</metadata>
+
+	<organizations default="ARG-ORG-01">
+		<organization identifier="ARG-ORG-01" structure="hierarchical">
+			<title>@orgtitle@</title>
+			<item identifier="ITEM-01" isvisible="true" identifierref="RES-01">
+				<title>@itemtitle@</title>
+				<adlnav:presentation>
+					<adlnav:navigationInterface>
+						<adlnav:hideLMSUI>continue</adlnav:hideLMSUI>
+						<adlnav:hideLMSUI>previous</adlnav:hideLMSUI>
+					</adlnav:navigationInterface>
+				</adlnav:presentation>
+			</item>
+
+			<imsss:sequencing>
+				<imsss:controlMode flow="true" />
+			</imsss:sequencing>
+		</organization>
+	</organizations>
+
+	<resources>
+		<resource identifier="RES-01" type="webcontent" href="applet.html"
+			adlcp:scormType="sco">
+			<metadata>
+			     <!--  #Lila start here -->
+				<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+					xmlns:j.0="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#"
+					xmlns:j.1="http://purl.org/dc/terms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+					xmlns:j.2="http://purl.org/gem/qualifiers/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+					xmlns:j.3="http://online-lab.org/">
+					<!--
+						#LILA this is an example for 3 authors. You can replace the names.
+						In case you don't need them, you can erase them. But you should at
+						least keep the creator1.
+					-->
+					<rdf:Description rdf:about="http://online-lab.org/Agent-creator1">
+						<rdf:type rdf:resource="http://online-lab.org/Agent" />
+						<!--
+							#Lila the xml:lang tag is the language representing the name.
+							This is only important if you want to e.g. add an university as
+							an agent, as you cann see in the agent below.
+						-->
+						<j.0:name xml:lang="de">@creatorname@</j.0:name>
+					</rdf:Description>
+				<!--
+					<rdf:Description rdf:about="http://online-lab.org/Agent-creator2">
+						<rdf:type rdf:resource="http://online-lab.org/Agent" />
+						<j.0:name xml:lang="de">Creator2</j.0:name>
+					</rdf:Description>
+					<rdf:Description rdf:about="http://online-lab.org/Agent-contributor1">
+						<rdf:type rdf:resource="http://online-lab.org/Agent" />
+						<j.0:name xml:lang="de">Contributor1</j.0:name>
+					</rdf:Description>
+				-->
+					<rdf:Description rdf:about="http://online-lab.org/Agent-university1">
+						<rdf:type rdf:resource="http://online-lab.org/Agent" />
+						<j.0:name xml:lang="de">@deuniname@</j.0:name>
+						<j.0:name xml:lang="en">@enuniname@</j.0:name>
+					</rdf:Description>
+
+					<rdf:Description
+						rdf:about="http://online-lab.org/InteractionPackage-1e0f4b16-cf65-41ec-838b-cff0b541fe57">
+
+						<!--
+							#Lila here you should add your title. In the xml:lang attribute,
+							you should put the language. You can privided it in as many
+							languages as you like, but you should at least put is in english
+							and your own language
+						-->
+						<j.1:title xml:lang="en">@itemtitle@</j.1:title>
+						<j.1:title xml:lang="de">@itemtitlede@</j.1:title>
+
+						<!--
+							#Lila here you find the people, that created this person. The
+							urls you see are links to the agents you see above.
+						-->
+						<j.1:creator rdf:resource="http://online-lab.org/Agent-creator1" />
+						<j.1:creator rdf:resource="http://online-lab.org/Agent-creator2" />
+
+						<j.1:description xml:lang="en">The simulation of an AFM</j.1:description>
+
+						<!--
+							#Lila Her you can add person/institutions that contributed to
+							this experiment. If you don't need it, delete the entry
+						-->
+						<j.1:contributor rdf:resource="http://online-lab.org/Agent-contributor1" />
+
+						<!--
+							#Lila languages, that your experiment support. This means mainly
+							th GUI. In this example, it is localized in English and German
+						-->
+						<j.1:language>de</j.1:language>
+						<j.1:language>en</j.1:language>
+
+						<!--
+							#Lila the size in which you GUI needs to be shown. Please
+							consider that too large dimensions will cause problems on systems
+							with a lower resultion screen. 960px width is e.g the maximum
+							width for a display of a typical netbook. The value is given in
+							widthxheight
+						-->
+						<j.1:format>800x600</j.1:format>
+
+						<!-- #Lila These are typical keywords for your experiment -->
+						<j.1:subject>physics</j.1:subject>
+						<j.1:subject>VAFM</j.1:subject>
+
+                        <!-- #Lila the licence to under which you experiment will be made available.
+                        We will promote that you use creative commons- by-non-commersal-non-derivate.  
+                        Please leave it as is for now, as it will be replace when it gets imported. 
+                        In case you need something else, please contact me, so I can take care of it during the import -->
+						<j.1:license>Creative Commons -by-nc-nd</j.1:license>
+						
+						<!-- # Lila Put her the type of your experiment. There are two possible values you can put here:
+						VirtualExperiment and RemoteExperiment. If you don't know which type to choose, please contact me -->
+						<j.1:type>VirtualExperiment</j.1:type>
+						
+						<!-- #Lila here you can write restrictions for you package, eg requires registration -->
+						<j.1:accessRights>Everyone can access for free</j.1:accessRights>
+						
+						<!-- #Lila The price you have to pay to use the experiment. 
+						There are three possible values you can put here:
+						Free, PartitialFree, NotFree-->
+						<j.2:priceCode>Free</j.2:priceCode>
+						
+						<!--  #Lila this will become the domain of you experiment. I think
+						two possible values should be use: physics or chemistry. In case you need more,
+						Please contact me, so I we can agree on more, as I need to define a mapping during import. -->
+						<j.3:scientificField>physics</j.3:scientificField>
+						<!--  Leave as is -->
+						<rdf:type rdf:resource="http://online-lab.org/InteractionPackage" />
+
+					</rdf:Description>
+				</rdf:RDF>
+			</metadata>
+			<file href="applet.html" />
+			<file href="lib/nano.jar" />
+		</resource>
+	</resources>
+</manifest>

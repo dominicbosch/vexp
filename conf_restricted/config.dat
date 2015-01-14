@@ -1,0 +1,3 @@
+#Config file for initialisation of restricted command broadcaster.
+#
+command=initports eventport=8012 streamport=8014

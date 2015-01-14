@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Extension-Name: JSci core
+Specification-Vendor: Mark Hale
+Created-By: 1.3.0 (IBM Corporation)
+Implementation-Vendor-Id: mark.hale@physics.org
+Implementation-Vendor: Mark Hale
+Specification-Version: 1.0
+Implementation-Version: 1.0
+

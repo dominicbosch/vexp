@@ -1,0 +1,203 @@
+<!--
+Call by using following snippet in another build file (e.g the root folder of your project)
+	<target name="packLLOs" depends="dist">
+	   <ant dir="llopackager" target="dist"/>
+	</target>
+-->
+<project name="llopackager" default="dist" basedir=".">
+	<!-- Necessary for the for loop below -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath path="lib/ant-contrib-1.0b3.jar"/>
+	</taskdef>
+
+	<property name="lib.dir" value="../lib"/>
+	<property name="llotemp.dir" value="llotemplate"/>
+	<property name="llo.dir" value="llodist"/>
+
+	<target name="clean">
+		<delete dir="${llo.dir}"/>
+	</target>
+	
+	<target name="prepare" depends="clean">
+		<mkdir dir="${llo.dir}"/>
+	</target>
+
+	<target name="dist" depends="prepare">
+	
+	<!-- define below the packages you want to create and refer to them in the switch -->
+		<property name="packages"
+			value="rafm,dipole,electrochemistry,friction_en,frictionexpert_en,friction_de,frictionexpert_de,imaging" />
+	
+		<echo message="Creating LLO's:"/>
+		<for list="${packages}" param="package">
+			<sequential>
+				<echo message="Creating package '@{package}'..." />
+				<mkdir dir="${llo.dir}/@{package}"/>
+				<mkdir dir="${llo.dir}/@{package}/lib"/>
+
+			<!-- Doing global tasks and paramaters-->
+				<var name="jar.name" value="nano.jar"/>
+				
+				<var name="isHandledCase" value="true"/>
+				<var name="creator" value="Dominic Bosch"/>
+				<var name="enuni" value="University of Basel"/>
+				<var name="deuni" value="Universität Basel"/>
+				<var name="width" value="750"/>
+				<var name="height" value="500"/>
+				<var name='javascript' value='' />
+				
+			<!-- Doing package specific tasks and parameters for applet.html -->
+				<switch value="@{package}">
+					<case value="rafm">
+						<var name="width" value="550"/>
+						<var name="height" value="660"/>
+						<var name="jar.name" value="nano-remexp.jar"/>
+						<var name="classname" value="nano.remexp.client.ClientApplet"/>
+						<var name="title" value="Remote AFM" />
+						<var name="titlede" value="Ferngesteuertes AFM" />
+						<var name="exptype" value="RemoteExperiment" />
+						<!--
+						<var name='javascript' value="document.getElementById('userid').innerHTML = lila_checkBooking.getLilaUser();" />
+						-->
+						<var name='javascript' value="document.getElementById('user').setAttribute('value', 'phewww');" />
+						<var name='url' value='&lt;param name="url" value="151.132.85.170"&gt;' />
+						<var name='eventport' value='&lt;param name="eventport" value="9100"&gt;' />
+						<var name='streamport' value='&lt;param name="streamport" value="9102"&gt;' />
+						<var name='userid' value='&lt;param name="userid" id="userid" value="empty..."&gt;' />
+						<!--<var name='javascript' value='document.getElementById("usersha").innerHTML = lila_checkBooking.SHA1(API.GetValue("cmi.learner_id")+window.location.host);' />
+						<var name='usersha' value='&lt;param name="usersha" id="usersha" value="empty..."&gt;' />
+						<var name='ticket' value='&lt;param name="ticket" value="javascript ticket"&gt;' />
+						<var name='params' value='${url}${line.separator}${eventport}${line.separator}${streamport}' />-->
+						<var name='params' value='${url}${line.separator}${eventport}${line.separator}${streamport}${line.separator}${userid}' />
+					</case>
+					<case value="dipole">
+					<!-- this applet needs another library -->
+						<copy file="${lib.dir}/jsci-core.jar" tofile="${llo.dir}/@{package}/lib/jsci-core.jar" />
+						<var name="classname" value="nano.client.standalone.DipoleStandAloneApplet"/>
+						<var name="title" value="Dipole Applet" />
+						<var name="titlede" value="Dipol Applet" />
+						<var name="exptype" value="VirtualExperiment" />
+						<var name='gui0' value='&lt;param name="gui0" value="label=zoom guitype=vollkreis min=1 max=10 Name=Scan_size"&gt;' />
+						<var name='gui1' value='&lt;param name="gui1" value="label=xoffset guitype=vollkreis min=-200 max=200 Name=x-Offset"&gt;' />
+						<var name='gui2' value='&lt;param name="gui2" value="label=yoffset guitype=vollkreis min=-200 max=200 Name=y-Offset"&gt;' />
+						<var name='gui3' value='&lt;param name="gui3" value="label=frequenz guitype=vollkreis min=1 max=20 Name=frequency"&gt;' />
+						<var name='params' value='${gui0}${line.separator}${gui1}${line.separator}${gui2}${line.separator}${gui3}' />
+					</case>
+					<case value="electrochemistry">
+						<var name="classname" value="nano.client.standalone.ElchemStandAloneApplet"/>
+						<var name="title" value="Electro Chemistry Applet" />
+						<var name="titlede" value="Elektrochemie Applet" />
+						<var name="exptype" value="VirtualExperiment" />
+						<var name='gui0' value='&lt;param name="gui0" value="label=step_width guitype=vollkreis min=0 max=30 Name=step_width"&gt;' />
+						<var name='gui1' value='&lt;param name="gui1" value="label=potential guitype=vollkreis min=-600 max=700 Name=potential"&gt;' />
+						<var name='params' value='${gui0}${line.separator}${gui1}' />
+					</case>
+					<case value="friction_en">
+						<var name="classname" value="nano.client.standalone.FrictionStandAloneApplet"/>
+						<var name="title" value="Friction Applet" />
+						<var name="titlede" value="Reibungs Applet" />
+						<var name="exptype" value="VirtualExperiment" />
+						<var name='gui0' value='&lt;param name="gui0" value="label=scansize guitype=vollkreis min=1 max=10 Name=Scan_size"&gt;' />
+						<var name='gui1' value='&lt;param name="gui1" value="label=offset guitype=vollkreis min=-20 max=80 Name=Offset"&gt;' />
+						<var name='gui2' value='&lt;param name="gui2" value="label=scales guitype=vollkreis min=-20 max=30 Name=Gain"&gt;' />
+						<var name='params' value='${gui0}${line.separator}${gui1}${line.separator}${gui2}' />
+					</case>
+					<case value="friction_de">
+						<var name="classname" value="nano.client.standalone.FrictionStandAloneApplet"/>
+						<var name="title" value="Reibungs Applet" />
+						<var name="titlede" value="Reibungs Applet" />
+						<var name="exptype" value="VirtualExperiment" />
+						<var name='gui0' value='&lt;param name="gui0" value="label=scansize guitype=vollkreis min=1 max=10 Name=Scan_Grösse"&gt;' />
+						<var name='gui1' value='&lt;param name="gui1" value="label=offset guitype=vollkreis min=-20 max=80 Name=Abstand"&gt;' />
+						<var name='gui2' value='&lt;param name="gui2" value="label=scales guitype=vollkreis min=-20 max=30 Name=Amplitude"&gt;' />
+						<var name='params' value='${gui0}${line.separator}${gui1}${line.separator}${gui2}' />
+					</case>
+					<case value="frictionexpert_en">
+						<var name="classname" value="nano.client.standalone.FrictionStandAloneApplet"/>
+						<var name="titlede" value="Reibungs Applet für Fortgeschrittene" />
+						<var name="exptype" value="VirtualExperiment" />
+						<var name='gui0' value='&lt;param name="gui0" value="label=scansize guitype=vollkreis min=0.1 max=50 Name=Scan_size"&gt;' />
+						<var name='gui1' value='&lt;param name="gui1" value="label=noise guitype=vollkreis min=0.2 max=100 Name=Noise"&gt;' />
+						<var name='gui2' value='&lt;param name="gui2" value="label=springconstant guitype=vollkreis min=0.2 max=80 Name=Spring_Constant"&gt;' />
+						<var name='gui3' value='&lt;param name="gui3" value="label=offset guitype=vollkreis min=-80 max=80 Name=Offset"&gt;' />
+						<var name='gui4' value='&lt;param name="gui4" value="label=scales guitype=vollkreis min=0.5 max=80 Name=Gain"&gt;' />
+						<var name='params' value='${gui0}${line.separator}${gui1}${line.separator}${gui2}${line.separator}${gui3}${line.separator}${gui4}' />
+					</case>
+					<case value="frictionexpert_de">
+						<var name="classname" value="nano.client.standalone.FrictionStandAloneApplet"/>
+						<var name="title" value="Reibungs Applet für Fortgeschrittene" />
+						<var name="titlede" value="Reibungs Applet für Fortgeschrittene" />
+						<var name="exptype" value="VirtualExperiment" />
+						<var name='gui0' value='&lt;param name="gui0" value="label=scansize guitype=vollkreis min=0.1 max=50 Name=Scan_Grösse"&gt;' />
+						<var name='gui1' value='&lt;param name="gui1" value="label=noise guitype=vollkreis min=0.2 max=100 Name=Rauschen"&gt;' />
+						<var name='gui2' value='&lt;param name="gui2" value="label=springconstant guitype=vollkreis min=0.2 max=80 Name=Federkonstante"&gt;' />
+						<var name='gui3' value='&lt;param name="gui3" value="label=offset guitype=vollkreis min=-80 max=80 Name=Abstand"&gt;' />
+						<var name='gui4' value='&lt;param name="gui4" value="label=scales guitype=vollkreis min=0.5 max=80 Name=Amplitude"&gt;' />
+						<var name='params' value='${gui0}${line.separator}${gui1}${line.separator}${gui2}${line.separator}${gui3}${line.separator}${gui4}' />
+					</case>
+					<case value="imaging">
+						<var name="classname" value="nano.client.standalone.ImagingStandAloneApplet"/>
+						<var name="title" value="Imaging Applet" />
+						<var name="titlede" value="Abbildungs Applet" />
+						<var name="exptype" value="VirtualExperiment" />
+						<var name='gui0' value='&lt;param name="gui0" value="label=zoom guitype=vollkreis min=0.2 max=50 Name=Scan_size"&gt;' />
+						<var name='gui1' value='&lt;param name="gui1" value="label=xoffset guitype=vollkreis min=-20 max=20 Name=X_Offset"&gt;' />
+						<var name='gui2' value='&lt;param name="gui2" value="label=yoffset guitype=vollkreis min=-20 max=20 Name=Y_Offset"&gt;' />
+						<var name='gui3' value='&lt;param name="gui3" value="label=noise guitype=vollkreis min=0 max=100 Name=Noise"&gt;' />
+						<var name='params' value='${gui0}${line.separator}${gui1}${line.separator}${gui2}${line.separator}${gui3}' />
+					</case>
+<!-- ADD FURTHER PACKAGES TO YOUR NEEDS -->
+					<default>
+					    <echo message="package @{package} was not handled... deleting folder again and moving to the next case" />
+						<var name="isHandledCase" value="false"/>
+					</default>
+				</switch>
+
+				<if>
+					<equals arg1="${isHandledCase}" arg2="false" />
+					<then>
+						<delete dir="${llo.dir}/@{package}"/>
+						<delete dir="${llo.dir}/@{package}/lib"/>
+					</then>
+					<else>
+						<var name="jarfrom.file" value="../jardist/${jar.name}"/>
+						<var name="jarto.file" value="lib/${jar.name}"/>
+					    <copy file="${jarfrom.file}" tofile="${llo.dir}/@{package}/${jarto.file}" />
+					<!-- copying applet.html and substituting parameters --> 
+					   	<copy file="${llotemp.dir}/applet.html"
+								tofile="${llo.dir}/@{package}/applet.html">
+							<filterchain>
+								<replacetokens>
+									<token key="javascript" value="${javascript}"/>
+									<token key="classname" value="${classname}"/>
+									<token key="title" value="${title}"/>
+									<token key="parameters" value="${params}"/>
+									<token key="archive" value="${jarto.file}" />
+									<token key="width" value="${width}" />
+									<token key="height" value="${height}" />
+								</replacetokens>
+							</filterchain>
+						</copy>
+		
+					<!-- copying  imsmanifest.xml and substituting parameters -->
+					   	<copy file="${llotemp.dir}/imsmanifest.xml" tofile="${llo.dir}/@{package}/imsmanifest.xml">
+							<filterchain>
+								<replacetokens>
+									<token key="orgtitle" value="${title}"/>
+									<token key="itemtitle" value="${title}"/>
+									<token key="itemtitlede" value="${titlede}"/>
+									<token key="creatorname" value="${creator}"/>
+									<token key="deuniname" value="${deuni}"/>
+									<token key="enuniname" value="${enuni}"/>
+									<token key="archive" value="${jarto.file}" />
+								</replacetokens>
+							</filterchain>
+						</copy>
+						<zip destfile="${llo.dir}/@{package}.zip" basedir="${llo.dir}/@{package}" />
+					</else> <!-- The case has been handled, thus zip generated -->
+				</if>
+			</sequential>  
+		</for> 
+	</target>
+
+</project>

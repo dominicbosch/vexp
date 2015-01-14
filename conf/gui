@@ -1,0 +1,3 @@
+label=scansize guitype=vollkreis group=course1
+label=springconstant guitype=vollkreis
+label=speed group=world

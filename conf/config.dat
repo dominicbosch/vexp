@@ -1,0 +1,7 @@
+#Config file for initialisation of vexp-server.
+#
+command=initports eventport=7910 streamport=7912
+command=initsource name=FrictionSimulatorNT
+#SnomSimulatorNT, FrictionSimulatorNT, ElectroSimulatorNT
+#RemoteSimulator, PushRemoteSimulator, ImagingSimulator
+#STMSimulator, DemoSimulator, DemoSimulator3, DemoSimulator5

@@ -1,0 +1,5 @@
+label=feedbackgain min=1 max=18 init=11 Name=Feedback_Gain guitype=vollkreis
+label=zgain min=0 max=8 init=2 guitype=vollkreis Name=Z_Gain
+label=xtilt min=-15 max=15 init=0 guitype=vollkreis Name=X_Tilt
+label=ytilt min=-15 max=15 init=0 guitype=vollkreis Name=Y_Tilt
+label=scanrange min=1 max=100 init=10 guitype=vollkreis Name=Scan_Range

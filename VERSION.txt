@@ -1,0 +1,40 @@
+Version: 3.0.1
+
+stable version
+- collaborative mode
+- standalone mode 
+- addaptive gui
+- remote AFM protocol
+- Swing GUI
+
+build in simulators:
+
+friction
+imaging
+electrochemistry
+single molecules
+SiSimulator
+
+
+Bug Fixes:
+
+VEXP 1.3
+- integration and long time tests
+  for stand alone simulators
+
+VEXP 1.2
+- Stop all running thread if the back or 
+  reload button is pressed
+- Adaptive GUI
+
+
+VEXP 1.1
+- after a client disconects, the streamingsocket uses 80% CPU
+- Browser falls in unexpected state and stopps, because a runing
+  thread tries to draw a line, while the Applet is closing.
+
+
+Current Bug List:
+
+- Adaptive gui can display some controllers several time
+  after a reload it works correct.

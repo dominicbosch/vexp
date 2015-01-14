@@ -1,0 +1,8 @@
+label=zoom guitype=vollkreis min=1 max=10 Name=Scan_size
+label=xoffset guitype=vollkreis min=-20 max=20 Name=X_Offset
+label=yoffset guitype=vollkreis min=-20 max=20 Name=Y_Offset
+label=noise guitype=vollkreis min=0 max=100 Name=Noise
+label=red guitype=vollkreis min=1 max=100 Name=Red_Channel
+label=blue guitype=vollkreis min=1 max=100 Name=Blue_Channel
+label=green guitype=vollkreis min=1 max=100 Name=Green_Channel
+label=alpha guitype=vollkreis min=1 max=360 Name=Alpha

@@ -1,0 +1,1 @@
+java -Djava.awt.headless=true -cp "lib\jsci-xtra.jar;lib\jsci-core.jar;jardist\nano.jar;lib\Acme.jar;lib\mysqldriver.jar;lib\core.jar" nano.server.Server %1

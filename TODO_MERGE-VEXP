@@ -1,0 +1,15 @@
+copy packages:
+ - nano.debugger
+ - nano.remexp.*
+
+copy folders:
+ - llopackager
+ - conf_remexp
+
+copy files:
+ - lib/nanoKeystore
+ - build.xml
+ - testRAFMApplet.html
+ - TODO_APPLET.txt
+ - startNanoRemExpServer.sh
+ 
