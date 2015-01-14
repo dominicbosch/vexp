@@ -237,7 +237,7 @@ public class ClientApplet extends JApplet implements SSStateListener{
 		labelApproachedTitle.setText("Approached: ");
 
 		labelApproachedDot.setBackground(Color.white);
-		labelApproachedDot.setIcon(new ImageIcon(getClass().getResource("dotGreen.jpg")));
+		labelApproachedDot.setIcon(new ImageIcon("dotGreen.jpg"));
 		
 		panelApproach.add(labelApproachedTitle);
 		panelApproach.add(labelApproachedDot);
@@ -246,7 +246,7 @@ public class ClientApplet extends JApplet implements SSStateListener{
 		labelMovingTitle.setText("Moving: ");
 
 		labelMovingDot.setBackground(Color.white);
-		labelMovingDot.setIcon(new ImageIcon(getClass().getResource("dotGreen.jpg")));
+		labelMovingDot.setIcon(new ImageIcon("dotGreen.jpg"));
 
 		panelMoving.add(labelMovingTitle);
 		panelMoving.add(labelMovingDot);
@@ -363,7 +363,7 @@ public class ClientApplet extends JApplet implements SSStateListener{
 		JLabel labelArrowRight = new JLabel();
 		
 		labelArrowUp.setBackground(Color.WHITE);
-		labelArrowUp.setIcon(new ImageIcon(getClass().getResource("arrow-up.jpg")));
+		labelArrowUp.setIcon(new ImageIcon("arrow-up.jpg"));
 		labelArrowUp.addMouseListener(new MouseAdapter() {  
 			public void mouseReleased(MouseEvent evt){  
 				labelArrowUpActionPerformed(evt);
@@ -371,7 +371,7 @@ public class ClientApplet extends JApplet implements SSStateListener{
 		});
 		
 		labelArrowLeft.setBackground(Color.WHITE);
-		labelArrowLeft.setIcon(new ImageIcon(getClass().getResource("arrow-left.jpg")));
+		labelArrowLeft.setIcon(new ImageIcon("arrow-left.jpg"));
 		labelArrowLeft.addMouseListener(new MouseAdapter() {  
 			public void mouseReleased(MouseEvent evt){  
 				labelArrowLeftActionPerformed(evt);
@@ -379,7 +379,7 @@ public class ClientApplet extends JApplet implements SSStateListener{
 		});
 		
 		labelArrowRight.setBackground(Color.WHITE);
-		labelArrowRight.setIcon(new ImageIcon(getClass().getResource("arrow-right.jpg")));
+		labelArrowRight.setIcon(new ImageIcon("arrow-right.jpg"));
 		labelArrowRight.addMouseListener(new MouseAdapter() {  
 			public void mouseReleased(MouseEvent evt){  
 				labelArrowRightActionPerformed(evt);
@@ -387,7 +387,7 @@ public class ClientApplet extends JApplet implements SSStateListener{
 		});
 		
 		labelArrowDown.setBackground(Color.WHITE);
-		labelArrowDown.setIcon(new ImageIcon(getClass().getResource("arrow-down.jpg")));
+		labelArrowDown.setIcon(new ImageIcon("arrow-down.jpg"));
 		labelArrowDown.addMouseListener(new MouseAdapter() {  
 			public void mouseReleased(MouseEvent evt){  
 				labelArrowDownActionPerformed(evt);
@@ -444,7 +444,7 @@ public class ClientApplet extends JApplet implements SSStateListener{
 	private JLabel createBlankArrow(){
 		JLabel arrow = new JLabel();
 		arrow.setBackground(Color.WHITE);
-		arrow.setIcon(new ImageIcon(getClass().getResource("blank25x25.jpg")));
+		arrow.setIcon(new ImageIcon("blank25x25.jpg"));
 		return arrow;
 	}
 
